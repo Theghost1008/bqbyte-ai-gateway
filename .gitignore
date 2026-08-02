@@ -1,0 +1,21 @@
+# Virtual Environment
+bqb/
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment Variables
+.env
+
+# VS Code
+.vscode/
+
+# Pytest
+.pytest_cache/
+
+# OS
+.DS_Store
