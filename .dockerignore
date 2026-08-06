@@ -1,0 +1,34 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+bqb/
+venv/
+.venv/
+
+# Git
+.git/
+.gitignore
+
+# Environment Variables
+.env
+
+# IDE Files
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Test cache
+.pytest_cache/
+
+# Build artifacts
+build/
+dist/
+
+# Logs
+*.log
