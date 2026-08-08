@@ -18,6 +18,8 @@ jobs:
               uses: actions/setup-python@v5
               with: 
                 python-version: "3.12"
+                cache: "pip"
+                cache-dependency-path: requirements.txt
 
             - name: Install Dependencies
               run : |
@@ -27,5 +29,17 @@ jobs:
             - name: Run Test
               run: pytest -v
 
+            # - name: Build Docker Image
+            #   run: docker build -t bqbyte-ai-gateway .
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
             - name: Build Docker Image
-              run: docker build -t bqbyte-ai-gateway .
+              uses: docker/build-push-action@v6
+              with:
+                context: .
+                push: false
+                tags: bqbyte-ai-gateway:latest
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
