@@ -46,6 +46,6 @@ jobs:
               with:
                 context: .
                 push: true
-                tags: bqbyte-ai-gateway:latest
+                tags: eliteghost/bqbyte-ai-gateway:latest
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
