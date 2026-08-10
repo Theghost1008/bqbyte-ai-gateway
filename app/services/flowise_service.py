@@ -2,6 +2,7 @@ import httpx
 
 from app.utils.logger import logger
 from app.utils.config import FLOWISE_API_URL
+from app.utils.config import FLOWISE_HEALTH_URL
 from typing import cast
 
 class FlowiseService:
@@ -28,4 +29,13 @@ class FlowiseService:
         except Exception:
             logger.exception("Flowise prediction failed")
             raise
-            
+    async def check_connection(self)->bool:
+        try:
+            # ping_url = cast(str,FLOWISE_API_URL).split("/prediction")[0]+"/ping"
+            ping_url = cast(str,FLOWISE_HEALTH_URL)
+            async with httpx.AsyncClient(timeout=5.0) as client:
+                response = await client.get(ping_url)
+            return response.status_code == 200
+        except httpx.HTTPError:
+            logger.exception("Flowise health check failed")
+            return False
