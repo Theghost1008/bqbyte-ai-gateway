@@ -2,7 +2,7 @@ import httpx
 
 from app.utils.logger import logger
 from app.utils.config import settings
-from typing import cast
+from app.exceptions.translator import translate_flowise_exception
 
 class FlowiseService:
 
@@ -25,9 +25,9 @@ class FlowiseService:
                 "success": True,
                 "res": data.get("text","No response returned")
             }
-        except Exception:
-            logger.exception("Flowise prediction failed")
-            raise
+        except httpx.HTTPError as exc:
+            logger.error("Flowise prediction failed")
+            raise translate_flowise_exception(exc) from exc
     async def check_connection(self)->bool:
         try:
             # ping_url = cast(str,FLOWISE_API_URL).split("/prediction")[0]+"/ping"
@@ -35,6 +35,6 @@ class FlowiseService:
             async with httpx.AsyncClient(timeout=5.0) as client:
                 response = await client.get(ping_url)
             return response.status_code == 200
-        except httpx.HTTPError:
-            logger.exception("Flowise health check failed")
-            return False
+        except httpx.HTTPError as exc:
+            logger.error("Flowise health check failed")
+            raise translate_flowise_exception(exc) from exc
