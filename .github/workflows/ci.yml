@@ -27,6 +27,9 @@ jobs:
                 pip install -r requirements.txt
 
             - name: Run Test
+              env: 
+                FLOWISE_API_URL: "https://cloud.flowiseai.com/api/v1/prediction/460e24c5-5106-4d98-965a-b6873a02e7fc"
+                FLOWISE_HEALTH_URL: "https://cloud.flowiseai.com/api/v1/ping"
               run: pytest -v
 
             # - name: Build Docker Image
