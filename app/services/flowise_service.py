@@ -1,8 +1,7 @@
 import httpx
 
 from app.utils.logger import logger
-from app.utils.config import FLOWISE_API_URL
-from app.utils.config import FLOWISE_HEALTH_URL
+from app.utils.config import settings
 from typing import cast
 
 class FlowiseService:
@@ -17,7 +16,7 @@ class FlowiseService:
         logger.info("Sending request to Flowise Cloud")
         try:
             async with httpx.AsyncClient(timeout=30.0) as client :
-                response = await client.post(cast(str,FLOWISE_API_URL),json=payload)
+                response = await client.post(settings.FLOWISE_API_URL,json=payload)
             response.raise_for_status()
             data=response.json()
             logger.info(f"Flowise response received | chatId={data.get('chatId')} | sessionId={data.get('sessionId')}")
@@ -32,7 +31,7 @@ class FlowiseService:
     async def check_connection(self)->bool:
         try:
             # ping_url = cast(str,FLOWISE_API_URL).split("/prediction")[0]+"/ping"
-            ping_url = cast(str,FLOWISE_HEALTH_URL)
+            ping_url = settings.FLOWISE_HEALTH_URL
             async with httpx.AsyncClient(timeout=5.0) as client:
                 response = await client.get(ping_url)
             return response.status_code == 200

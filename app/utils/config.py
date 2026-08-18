@@ -1,10 +1,12 @@
-from dotenv import load_dotenv
-import os
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-load_dotenv()
+class Settings(BaseSettings):
+    FLOWISE_API_URL: str
+    FLOWISE_HEALTH_URL: str
 
-FLOWISE_API_URL = os.getenv("FLOWISE_API_URL")
-FLOWISE_HEALTH_URL = os.getenv("FLOWISE_HEALTH_URL")
+    APP_NAME: str = "BQBYTE AI Gateway"
+    VERSION: str = "1.0.0"
 
-APP_NAME = "BQBYTE AI Gateway"
-VERSION = "1.0.0"
+    model_config=SettingsConfigDict(env_file=".env",env_file_encoding="utf-8",extra="ignore")
+
+settings = Settings() # pyright: ignore[reportCallIssue]
