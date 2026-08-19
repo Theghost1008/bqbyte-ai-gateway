@@ -2,9 +2,20 @@
 
 A production-shaped **FastAPI gateway** that sits in front of a [Flowise](https://flowiseai.com/) Cloud–hosted RAG pipeline, exposing it as a clean, typed, observable REST API. Built as the AI-serving layer for BQBYTE's supply chain intelligence use case — supplier performance, SLA compliance, procurement policy, and risk analysis — over a 432-chunk indexed knowledge base.
 
-This is a **backend-only service** (no frontend) — it's meant to be consumed by other applications over HTTP, not accessed directly by end users.
+This is a **backend-only service** — it's meant to be consumed by other applications over HTTP, not accessed directly by end users.
 
 ---
+
+## 🚀 Live Deployment
+
+> BQBYTE AI Gateway is containerized with Docker and deployed on Render.
+
+| Resource | URL |
+|---|---|
+| 🌐 **API** | https://bqbyte-ai-gateway.onrender.com |
+| 📚 **Swagger UI** | https://bqbyte-ai-gateway.onrender.com/docs |
+| ❤️ **Health Check** | https://bqbyte-ai-gateway.onrender.com/health |
+| 🔍 **Readiness Check** | https://bqbyte-ai-gateway.onrender.com/ready |
 
 ## What it does
 
@@ -113,7 +124,7 @@ Readiness check — pings the Flowise health URL (5s timeout) and reports whethe
 { "message": "Welcome to BQBYTE AI Gateway 🚀" }
 ```
 
-Interactive API docs (Swagger UI) are available at `/docs` once the service is running.
+Interactive API documentation is available through [Swagger UI](https://bqbyte-ai-gateway.onrender.com/docs) on the deployed instance, or at `/docs` when running locally.
 
 ---
 
