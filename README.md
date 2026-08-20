@@ -64,8 +64,6 @@ Dockerfile
 requirements.txt
 ```
 
-> **Note:** `app/utils/exception_handler.py` and `app/exceptions/handlers.py` both define exception-to-HTTP-status mappings. Only `exceptions/handlers.py` is actually registered in `main.py` via `register_exception_handler(app)` — `utils/exception_handler.py` is an earlier iteration left in the codebase. Worth cleaning up (delete or clearly mark as deprecated) before this goes further.
-
 **Design principle:** routes stay thin, all external I/O is isolated in the service layer, and cross-cutting concerns (config, logging, exceptions) are pulled out rather than scattered through the routes.
 
 ---
